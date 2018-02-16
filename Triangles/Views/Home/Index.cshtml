@@ -1,0 +1,75 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <input id="row" placeholder="row" value="A" />
+        <input id="column" placeholder="column" value="1" />
+        <button id="getCoordinates">Get Coordinates</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input id="v1x" placeholder="v1x" value="0" style="width: 60px;" />
+        <input id="v1y" placeholder="v1y" value="10" style="width: 60px;" />
+        <input id="v2x" placeholder="v2x" value="0" style="width: 60px;" />
+        <input id="v2y" placeholder="v2y" value="0" style="width: 60px;" />
+        <input id="v3x" placeholder="v3x" value="10" style="width: 60px;" />
+        <input id="v3y" placeholder="v3y" value="10" style="width: 60px;" />
+        <button id="getTriangle">Get Triangle</button>
+    </div>
+</div>
+<script>
+    //alert("first");
+    $(document).ready(function(){
+
+        $("#getCoordinates").click(function () {
+            var triangle = {
+                'row': row.value,
+                'column': column.value
+            }
+            $.ajax({
+                url: "http://localhost:65456/api/triangles/GetCoordinates",
+                type: 'GET',
+                datatype: 'json',
+                data: triangle,
+                success: function (data) {
+                    $('#v1x').val(data.v1x);
+                    $('#v1y').val(data.v1y);
+                    $('#v2x').val(data.v2x);
+                    $('#v2y').val(data.v2y);
+                    $('#v3x').val(data.v3x);
+                    $('#v3y').val(data.v3y);
+
+                    //alert("complete");
+                }
+            });
+        });
+
+
+        $("#getTriangle").click(function () {
+            var coordinates = {
+                'v1x': v1x.value,
+                'v1y': v1y.value,
+                'v2x': v2x.value,
+                'v2y': v2y.value,
+                'v3x': v3x.value,
+                'v3y': v3y.value,
+            }
+            $.ajax({
+                url: "http://localhost:65456/api/triangles/GetTriangle",
+                type: 'GET',
+                datatype: 'json',
+                data: coordinates,
+                success: function (data) {
+                    $('#row').val(data.row);
+                    $('#column').val(data.column);
+
+                    //alert("complete");
+                }
+            });
+        });
+    });
+</script>
